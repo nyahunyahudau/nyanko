@@ -10,10 +10,12 @@ onmessage = function(event) {
                     successCount++;
                 } else {
                     errorCount++;
+                    console.error(`Request failed with status: ${response.status}`);
                 }
             })
-            .catch(() => {
+            .catch(error => {
                 errorCount++;
+                console.error(`Request error: ${error.message}`);
             });
     };
 
