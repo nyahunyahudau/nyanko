@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load Test Tool</title>
+</head>
+<body>
+    <h1>Load Test Tool</h1>
+    <input type="text" id="url" placeholder="Enter the URL" />
+    <input type="number" id="requestsPerSecond" placeholder="Requests per second" />
+    <button id="start">Start Test</button>
+    <div id="results"></div>
+
+    <script>
+        const startButton = document.getElementById('start');
+        const urlInput = document.getElementById('url');
+        const rpsInput = document.getElementById('requestsPerSecond');
+        const resultsDiv = document.getElementById('results');
+
+        startButton.addEventListener('click', () => {
+            const url = urlInput.value;
+            const rps = parseInt(rpsInput.value);
+
+            if (!url || isNaN(rps) || rps <= 0) {
+                alert('Please enter a valid URL and RPS.');
+                return;
+            }
+
+            resultsDiv.innerHTML = 'Starting test...';
+
+            const worker = new Worker('worker.js');
+            worker.postMessage({ url, rps });
+
+            worker.onmessage = (event) => {
+                resultsDiv.innerHTML = `Test completed: ${event.data.successCount} successes, ${event.data.errorCount} errors.`;
+            };
+        });
+    </script>
+</body>
+</html>
