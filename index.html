@@ -8,8 +8,12 @@
 <body>
     <h1>Load Test</h1>
     <button id="startTest">Start Test</button>
-    <div id="status"></div>
-
+    <div id="status">
+        <p>Status: <span id="statusText">Idle</span></p>
+        <p>Requests Completed: <span id="requestsCompleted">0</span></p>
+        <p>Errors: <span id="errors">0</span></p>
+        <p>Current RPS: <span id="currentRPS">0</span></p>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
