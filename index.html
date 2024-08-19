@@ -33,7 +33,7 @@
             worker.postMessage({ url, rps });
 
             worker.onmessage = (event) => {
-                resultsDiv.innerHTML = `Test completed: ${event.data.successCount} successes, ${event.data.errorCount} errors.`;
+                resultsDiv.innerHTML = `Test completed: ${event.data.successCount} successes, ${event.data.errorCount} errors. Check the console for more details.`;
             };
         });
     </script>
