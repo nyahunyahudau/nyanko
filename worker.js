@@ -6,7 +6,7 @@ self.onmessage = function(event) {
 
     function makeRequest() {
         // Example of a request
-        fetch('https://example.com/api')
+        fetch('http://nyahu.xyz')
             .then(() => {
                 requestsCompleted++;
                 if (requestsCompleted % 100 === 0) {
