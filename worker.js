@@ -8,7 +8,7 @@ self.onmessage = function(event) {
 
     function makeRequest() {
         const startTime = performance.now();
-        fetch('https://example.com/api')
+        fetch('http://nyahu.xyz')
             .then(() => {
                 const endTime = performance.now();
                 const elapsedTime = endTime - startTime;
