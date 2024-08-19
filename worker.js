@@ -1,22 +1,27 @@
+let requestsCompleted = 0;
+let errors = 0;
+let rps = 0;
+
 self.onmessage = function(event) {
-    const { rps } = event.data;
+    rps = event.data.rps;
     const interval = 1000 / rps;
 
-    let requestsCompleted = 0;
-
     function makeRequest() {
-        // Example of a request
-        fetch('http://nyahu.xyz')
+        const startTime = performance.now();
+        fetch('https://example.com/api')
             .then(() => {
-                requestsCompleted++;
-                if (requestsCompleted % 100 === 0) {
-                    postMessage({ requestsCompleted });
-                }
+                const endTime = performance.now();
+                const elapsedTime = endTime - startTime;
+                // Calculate and update RPS based on time taken
+                const currentRPS = 1000 / elapsedTime;
+                postMessage({ requestsCompleted, errors, currentRPS });
             })
             .catch(() => {
-                // Handle error
+                errors++;
+                postMessage({ requestsCompleted, errors, currentRPS: 0 });
             })
             .finally(() => {
+                requestsCompleted++;
                 setTimeout(makeRequest, interval);
             });
     }
